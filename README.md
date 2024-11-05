@@ -1,8 +1,8 @@
-[![Build and Push Docker Image](https://github.com/bwbioinfo/<tool>-docker-cwl/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/bwbioinfo/<tool>-docker-cwl/actions/workflows/build-and-push.yml)
+[![Build and Push Docker Image](https://github.com/bwbioinfo/slow5tools-docker-cwl/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/bwbioinfo/slow5tools-docker-cwl/actions/workflows/build-and-push.yml)
 
-# <tool>-docker-cwl
+# slow5tools-docker-cwl
 
-This repository provides a [Common Workflow Language (CWL)](https://www.commonwl.org/) tool for running the [<tool>](link) program. The tool is packaged in a Docker container, allowing it to run on any system with Docker or Singularity installed.
+This repository provides a [Common Workflow Language (CWL)](https://www.commonwl.org/) tool for running the [Slow5Tools](https://github.com/hasindu2008/slow5tools) program. The tool is packaged in a Docker container, allowing it to run on any system with Docker or Singularity installed.
 
 ## Prerequisites
 
@@ -17,33 +17,38 @@ To install and run the tool, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Install Docker, if you haven't already done so.
-3. (optional) Build the Docker image by running the following command from the root of the repository:
+3. (Optional) Build the Docker image by running the following command from the root of the repository:
 
+    ```bash
+    docker build -f docker/Dockerfile -t slow5tools-docker-cwl .
     ```
-    docker build -f docker/Dockerfile -t <tool>-docker-cwl .
-    ```
-    OR pull from the built container.
-    ```
-    docker pull ghcr.io/bwbioinfo/<tool>-docker-cwl:latest
-    ```
-   Note: this is only needed if you wish to access the container commands directly via docker.
-4. Run the CWL tool by running the following command from the root of the repository:
+    OR pull the pre-built container:
 
-    ```
-    cwl-runner <tool>-tool.cwl <tool>-inputs.yml
-    ```
-    OR
-    ```
-    cwl-runner --singularity <tool>-tool.cwl <tool>-inputs.yml
+    ```bash
+    docker pull ghcr.io/bwbioinfo/slow5tools-docker-cwl:latest
     ```
 
-   This will run the <tool> software on the input sequence specified in the `<tool>-inputs.yml` file.
+   **Note**: Building the image is only needed if you wish to access the container commands directly via Docker.
+
+4. Run the CWL tool with the following command from the root of the repository:
+
+    ```bash
+    cwl-runner slow5tools-tool.cwl slow5tools-inputs.yml
+    ```
+    OR with Singularity:
+
+    ```bash
+    cwl-runner --singularity slow5tools-tool.cwl slow5tools-inputs.yml
+    ```
+
+   This will run Slow5Tools on the input specified in the `slow5tools-inputs.yml` file.
 
 ## Usage
 
-To use the tool, you will need to create a YAML file specifying the input sequence and any other parameters you wish to specify. An example YAML file is provided in the `example` directory of this repository.
+To use the tool, create a YAML file specifying the input file and any other parameters. An example YAML file is provided in the `example` directory of this repository.
 
-The `<tool>-tool.cwl` file is the main workflow file that describes the steps of the <tool> analysis. The `<tool>-inputs.yml` file is an example input file that specifies the input and any other options you wish to specify. The `<tool>-tool.cwl` file includes the docker specification. You can also use [Singularity](https://sylabs.io/singularity/) via the cwl-runner option `--singularity` 
+- **`slow5tools-tool.cwl`**: The main workflow file that defines the steps for the Slow5Tools analysis.
+- **`slow5tools-inputs.yml`**: An example input file that specifies the input data and any other options.
 
 The output of the analysis will be written to a directory named `output` in the current working directory.
 
@@ -59,7 +64,7 @@ If you wish to contribute to this project, please follow the standard GitHub wor
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/bwbioinfo/tool-docker-cwl/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/bwbioinfo/slow5tools-docker-cwl/blob/main/LICENSE).
 
 ## Contact
 
